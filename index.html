@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Maison du Papé — Cuisine Gasconne, Condom (Gers)</title>
+  <meta name="description" content="Bernard et Michèle Caussade cuisinent gascon depuis 1987. Foie gras maison, confit de canard, cassoulet 48h. Condom, Gers." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:  '#FAF6ED',
+            cream2: '#F0E8D4',
+            cream3: '#E3D6BB',
+            bord:   '#7B1D1D',
+            bordL:  '#A63328',
+            ocre:   '#C47E2E',
+            ocreL:  '#D9A55A',
+            ink:    '#201A10',
+            ink2:   '#4A3F2F',
+            muted:  '#7A6D5D',
+            line:   '#D9CDB8',
+          },
+          fontFamily: {
+            serif: ['"Fraunces"', 'Georgia', 'serif'],
+            sans:  ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .reveal[data-delay="1"] { transition-delay: .10s; }
+    .reveal[data-delay="2"] { transition-delay: .20s; }
+    .reveal[data-delay="3"] { transition-delay: .30s; }
+
+    .lift { transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
+    .lift:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -20px rgba(32,26,16,.22); }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute;
+      left: 0; right: 0; bottom: -4px;
+      height: 1px; background: currentColor;
+      transform: scaleX(0); transform-origin: right;
+      transition: transform .4s cubic-bezier(.22,.61,.36,1);
+    }
+    .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    .sep {
+      display: flex; align-items: center; gap: 16px;
+      color: #D9CDB8; font-size: 10px; letter-spacing: .2em;
+    }
+    .sep::before, .sep::after { content: ''; flex: 1; height: 1px; background: #D9CDB8; }
+
+    .img-zoom { overflow: hidden; }
+    .img-zoom img { transition: transform .8s cubic-bezier(.22,.61,.36,1); }
+    .img-zoom:hover img { transform: scale(1.05); }
+
+    /* Marquee défilant */
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-track {
+      animation: marqueeScroll 32s linear infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+    }
+
+    /* Nav : état initial (sur hero sombre) */
+    #nav { background: linear-gradient(to bottom, rgba(32,26,16,.60) 0%, transparent 100%); }
+    #nav.scrolled { background: #FAF6ED; border-bottom: 1px solid #D9CDB8; }
+    #nav .nav-logo { color: #FAF6ED; }
+    #nav .nav-lnk  { color: rgba(250,246,237,.80); }
+    #nav .nav-cta  { border-color: rgba(250,246,237,.55); color: #FAF6ED; }
+    #nav.scrolled .nav-logo { color: #201A10; }
+    #nav.scrolled .nav-lnk  { color: #4A3F2F; }
+    #nav.scrolled .nav-cta  { border-color: #7B1D1D; color: #7B1D1D; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-cream text-ink font-sans antialiased overflow-x-hidden">
+
+<!-- ══════════════════════════════════════
+     01 · NAV
+══════════════════════════════════════ -->
+<header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+    <a href="#" class="nav-logo font-serif text-lg font-light tracking-wide leading-none transition-colors duration-500">
+      La Maison <span class="italic">du Papé</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13px] font-medium tracking-wide uppercase">
+      <a href="#histoire" class="nav-link nav-lnk transition-colors duration-500 hover:opacity-100">L'histoire</a>
+      <a href="#carte"    class="nav-link nav-lnk transition-colors duration-500 hover:opacity-100">La carte</a>
+      <a href="#producteurs" class="nav-link nav-lnk transition-colors duration-500 hover:opacity-100">Nos producteurs</a>
+      <a href="#infos"    class="nav-link nav-lnk transition-colors duration-500 hover:opacity-100">Infos</a>
+    </nav>
+    <a href="#reservation"
+       class="nav-cta hidden md:inline-flex items-center text-[12px] font-medium tracking-widest uppercase px-5 py-2.5 border transition-all duration-500 hover:bg-bord hover:border-bord hover:text-cream">
+      Réserver
+    </a>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════
+     02 · HERO
+══════════════════════════════════════ -->
+<section class="relative min-h-screen flex items-center pt-16">
+  <div class="absolute inset-0 img-zoom">
+    <img src="canard confit photo.jpg"
+         alt="Confit de canard de La Maison du Papé"
+         class="w-full h-full object-cover object-center"
+         loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/25"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6 md:px-10 py-24 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <p class="reveal text-ocreL text-[11px] tracking-[.25em] uppercase font-medium mb-5">
+        Condom, Gers — Depuis 1987
+      </p>
+      <h1 class="reveal font-serif text-cream text-5xl md:text-6xl lg:text-7xl font-light leading-[1.08] mb-6" data-delay="1">
+        La cuisine<br />
+        <em class="not-italic font-light text-ocreL">gasconne</em><br />
+        comme avant
+      </h1>
+      <p class="reveal text-cream/75 text-base font-light leading-relaxed max-w-md mb-10" data-delay="2">
+        Bernard et Michèle Caussade perpétuent les recettes de leur grand-père. Foie gras du matin, confit mijoté 8 heures, croustade flambée à l'Armagnac. Rien n'a changé depuis 1987.
+      </p>
+      <div class="reveal flex flex-col sm:flex-row gap-3" data-delay="3">
+        <a href="#reservation"
+           class="inline-flex justify-center items-center bg-ocre text-ink text-[12px] font-semibold tracking-widest uppercase px-8 py-4 hover:bg-ocreL transition-colors">
+          Réserver une table
+        </a>
+        <a href="#carte"
+           class="inline-flex justify-center items-center border border-cream/45 text-cream text-[12px] font-medium tracking-widest uppercase px-8 py-4 hover:bg-cream/10 transition-colors">
+          Voir la carte
+        </a>
+      </div>
+    </div>
+
+    <!-- Badge année — plus visible -->
+    <div class="hidden md:flex justify-end items-center">
+      <div class="border border-cream/30 p-10 text-center bg-ink/40 backdrop-blur-sm">
+        <span class="font-serif text-cream/60 text-9xl font-light leading-none block">1987</span>
+        <p class="text-cream/55 text-[10px] tracking-[.28em] uppercase mt-4">Ouverture de la maison</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream/45">
+    <span class="text-[10px] tracking-[.2em] uppercase">Découvrir</span>
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
+      <path d="M8 4v16M2 14l6 6 6-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     03 · L'HISTOIRE
+══════════════════════════════════════ -->
+<section id="histoire" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div class="reveal img-zoom overflow-hidden">
+        <img src="cassoulet.jpg"
+             alt="Le cassoulet maison de La Maison du Papé"
+             class="w-full aspect-[4/5] object-cover" loading="lazy" />
+      </div>
+      <div>
+        <p class="reveal text-muted text-[11px] tracking-[.25em] uppercase mb-4">Notre histoire</p>
+        <h2 class="reveal font-serif text-4xl md:text-5xl font-light leading-tight mb-8" data-delay="1">
+          Une maison,<br />une <em>famille</em>,<br />une recette
+        </h2>
+        <p class="reveal text-ink2 font-light leading-relaxed mb-5" data-delay="1">
+          Tout commence dans la cour de la maison familiale à Condom, avec le grand-père — le Papé. Il élevait ses canards, distillait son Armagnac, et cuisinait chaque dimanche pour la famille. Les recettes ne s'écrivent pas : elles se regardent faire, se sentent, se mémorisent dans les mains.
+        </p>
+        <p class="reveal text-ink2 font-light leading-relaxed mb-10" data-delay="2">
+          En 1987, Bernard et Michèle ont ouvert la maison aux convives. Pas de chef extérieur, pas de formation hôtelière — juste deux Gascons qui décident de cuisiner pour les autres. Aujourd'hui, leurs petits-enfants mettent la table le week-end.
+        </p>
+        <blockquote class="reveal border-l-2 border-ocre pl-6 py-1" data-delay="2">
+          <p class="font-serif italic text-xl text-ink leading-relaxed mb-3">
+            « On ne cuisine pas pour impressionner. On cuisine pour que les gens se sentent chez eux. »
+          </p>
+          <footer class="text-muted text-[11px] tracking-[.18em] uppercase">Bernard Caussade, fondateur</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     04 · NOTRE SECRET
+══════════════════════════════════════ -->
+<section class="bg-cream2 py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 mb-16">
+    <div class="text-center mb-16">
+      <p class="reveal text-muted text-[11px] tracking-[.25em] uppercase mb-4">Ce qui nous définit</p>
+      <h2 class="reveal font-serif text-4xl md:text-5xl font-light" data-delay="1">
+        Notre <em>secret</em>
+      </h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line">
+      <div class="reveal bg-cream2 p-8 lift" data-delay="1">
+        <h3 class="font-serif text-xl mb-3">Des produits vrais</h3>
+        <p class="text-muted font-light text-sm leading-relaxed">Les canards viennent de l'éleveur à 8 km. Le foie gras, Michèle le prépare avec amour.</p>
+      </div>
+      <div class="reveal bg-cream2 p-8 lift" data-delay="2">
+        <h3 class="font-serif text-xl mb-3">Recettes ancestrales</h3>
+        <p class="text-muted font-light text-sm leading-relaxed">La croustade se prépare à la main comme en 1962. La garbure, c'est celle du Papé.</p>
+      </div>
+      <div class="reveal bg-cream2 p-8 lift" data-delay="3">
+        <h3 class="font-serif text-xl mb-3">Trois générations</h3>
+        <p class="text-muted font-light text-sm leading-relaxed">Bernard, Michèle et leurs petits-enfants. La transmission, c'est aussi ça.</p>
+      </div>
+      <div class="reveal bg-cream2 p-8 lift">
+        <h3 class="font-serif text-xl mb-3">Terroir du Gers</h3>
+        <p class="text-muted font-light text-sm leading-relaxed">Armagnac, cèpes, haricots tarbais, pommes de verger. Rien ne vient de loin.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marquee photos défilantes -->
+  <div class="marquee-outer overflow-hidden">
+    <div class="marquee-track flex gap-3" style="width: max-content;">
+      <!-- Série 1 -->
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="canard confit photo.jpg"    alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="foie grad.jpg"               alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="cassoulet.jpg"               alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="magret aux girolles.jpg"     alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="fromage.jpg"                 alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="croustade aux pommes.jpg"    alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="eleveur canard.jpg"          alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <!-- Série 2 — doublon pour boucle seamless -->
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="canard confit photo.jpg"    alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="foie grad.jpg"               alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="cassoulet.jpg"               alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="magret aux girolles.jpg"     alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="fromage.jpg"                 alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="croustade aux pommes.jpg"    alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-72 h-52 overflow-hidden"><img src="eleveur canard.jpg"          alt="" class="w-full h-full object-cover" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     05 · LA CARTE (pilotée par Google Sheet)
+══════════════════════════════════════ -->
+<section id="carte" class="bg-ink py-24 md:py-32">
+  <div class="max-w-5xl mx-auto px-6 md:px-10">
+    <div class="text-center mb-16">
+      <p class="reveal text-ocreL text-[11px] tracking-[.25em] uppercase mb-4">Nos incontournables</p>
+      <h2 class="reveal font-serif text-cream text-4xl md:text-5xl font-light" data-delay="1">La carte</h2>
+    </div>
+
+    <!-- Contenu piloté par Google Sheets — fallback gascon si non configuré -->
+    <div id="menuRoot">
+      <!-- injecté par JS -->
+    </div>
+
+    <!-- Formules (statiques) -->
+    <div class="reveal mt-16 pt-12 border-t border-ink2/60">
+      <p class="text-muted text-[11px] tracking-widest uppercase mb-8 text-center">Nos formules</p>
+      <div class="grid md:grid-cols-3 gap-px bg-ink2/40">
+        <div class="bg-ink px-8 py-8">
+          <p class="font-serif text-cream text-2xl mb-1">Déjeuner</p>
+          <p class="font-serif text-ocreL text-3xl mb-4">22 <span class="text-lg">€</span></p>
+          <p class="text-muted text-sm font-light leading-relaxed">Entrée + plat du jour + café ou dessert</p>
+        </div>
+        <div class="bg-ink px-8 py-8">
+          <p class="font-serif text-cream text-2xl mb-1">Menu Gascon</p>
+          <p class="font-serif text-ocreL text-3xl mb-4">38 <span class="text-lg">€</span></p>
+          <p class="text-muted text-sm font-light leading-relaxed">Foie gras · confit · croustade · verre de vin</p>
+        </div>
+        <div class="bg-ink px-8 py-8">
+          <p class="font-serif text-cream text-2xl mb-1">Menu Tradition</p>
+          <p class="font-serif text-ocreL text-3xl mb-4">54 <span class="text-lg">€</span></p>
+          <p class="text-muted text-sm font-light leading-relaxed">Entrée · plat · fromages · dessert · ½ Madiran</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     06 · AVIS CLIENTS
+══════════════════════════════════════ -->
+<section class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+
+    <!-- Métriques -->
+    <div class="reveal grid grid-cols-3 gap-px bg-line mb-16 text-center">
+      <div class="bg-cream py-10">
+        <p class="font-serif text-5xl md:text-6xl font-light text-bord mb-2">4,8<span class="text-3xl text-ocre">/5</span></p>
+        <p class="text-muted text-[11px] tracking-[.2em] uppercase">Note Google</p>
+      </div>
+      <div class="bg-cream py-10">
+        <p class="font-serif text-5xl md:text-6xl font-light text-bord mb-2">340<span class="text-3xl text-ocre">+</span></p>
+        <p class="text-muted text-[11px] tracking-[.2em] uppercase">Avis vérifiés</p>
+      </div>
+      <div class="bg-cream py-10">
+        <p class="font-serif text-5xl md:text-6xl font-light text-bord mb-2">38<span class="text-3xl text-ocre">ans</span></p>
+        <p class="text-muted text-[11px] tracking-[.2em] uppercase">D'ancienneté</p>
+      </div>
+    </div>
+
+    <!-- Témoignages -->
+    <div class="grid md:grid-cols-3 gap-px bg-line mb-10">
+      <div class="reveal bg-cream p-8 lift">
+        <div class="text-ocre mb-4">★★★★★</div>
+        <p class="font-serif text-lg italic leading-relaxed text-ink mb-5">
+          « Le foie gras de Michèle, le meilleur que j'aie mangé. On y retourne chaque été sans hésiter. »
+        </p>
+        <p class="text-[11px] text-muted tracking-wide uppercase"><span class="font-medium">Marie & Gilles T.</span> · Juillet 2025</p>
+      </div>
+      <div class="reveal bg-cream p-8 lift" data-delay="1">
+        <div class="text-ocre mb-4">★★★★★</div>
+        <p class="font-serif text-lg italic leading-relaxed text-ink mb-5">
+          « Cassoulet mijoté 48h, ça se sent vraiment. Accueil chaleureux, on se sent en famille. »
+        </p>
+        <p class="text-[11px] text-muted tracking-wide uppercase"><span class="font-medium">Antoine R.</span> · Octobre 2025</p>
+      </div>
+      <div class="reveal bg-cream p-8 lift" data-delay="2">
+        <div class="text-ocre mb-4">★★★★★</div>
+        <p class="font-serif text-lg italic leading-relaxed text-ink mb-5">
+          « La croustade aux pommes de Michèle — on n'en a pas trouvé de meilleure dans tout le Gers. »
+        </p>
+        <p class="text-[11px] text-muted tracking-wide uppercase"><span class="font-medium">Sophie B.</span> · Août 2025</p>
+      </div>
+    </div>
+
+    <!-- Lien Google Avis -->
+    <div class="text-center">
+      <a href="https://maps.google.com" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 text-[12px] font-medium tracking-widest uppercase text-ink2 border-b border-ink2/40 pb-1 hover:text-bord hover:border-bord transition-colors">
+        Voir tous les avis Google
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+          <path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     07 · NOS PRODUCTEURS
+══════════════════════════════════════ -->
+<section id="producteurs" class="bg-cream2 py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+
+    <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center mb-20">
+      <div>
+        <p class="reveal text-muted text-[11px] tracking-[.25em] uppercase mb-4">Nos sources</p>
+        <h2 class="reveal font-serif text-4xl md:text-5xl font-light leading-tight" data-delay="1">
+          Des producteurs,<br />pas des <em>fournisseurs</em>
+        </h2>
+      </div>
+      <div class="reveal" data-delay="1">
+        <p class="text-ink2 font-light leading-relaxed">
+          Bernard connaît chacun par son prénom. Il achète au marché de Condom chaque matin, passe chez les éleveurs en semaine, et ramasse lui-même les cèpes en saison. Pas de livraison anonyme — des visages, des noms, des histoires.
+        </p>
+      </div>
+    </div>
+
+    <!-- Grille producteurs -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line">
+
+      <div class="reveal bg-cream2 p-8 lift" data-delay="1">
+        <div class="img-zoom mb-6 overflow-hidden">
+          <img src="eleveur canard.jpg"
+               alt="Élevage de canards du Gers"
+               class="w-full aspect-video object-cover" loading="lazy" />
+        </div>
+        <p class="text-ocre text-[10px] tracking-widest uppercase mb-2">Canard & Foie gras</p>
+        <h3 class="font-serif text-xl mb-2">Les Élevages Larroque</h3>
+        <p class="text-muted text-sm font-light leading-relaxed">
+          Roger Larroque élève ses canards en plein air à Montréal-du-Gers, à 8 km de la maison. Bernard le connaît depuis trente ans.
+        </p>
+      </div>
+
+      <div class="reveal bg-cream2 p-8 lift" data-delay="2">
+        <div class="img-zoom mb-6 overflow-hidden">
+          <img src="marché codom.jpg"
+               alt="Marché de Condom"
+               class="w-full aspect-video object-cover" loading="lazy" />
+        </div>
+        <p class="text-ocre text-[10px] tracking-widest uppercase mb-2">Légumes & Herbes</p>
+        <h3 class="font-serif text-xl mb-2">Marché de Condom</h3>
+        <p class="text-muted text-sm font-light leading-relaxed">
+          Chaque mercredi matin, Bernard fait le tour des stands. Ail rose de Lautrec, tomates anciennes, haricots tarbais — la carte s'écrit là.
+        </p>
+      </div>
+
+      <div class="reveal bg-cream2 p-8 lift" data-delay="3">
+        <div class="img-zoom mb-6 overflow-hidden">
+          <img src="producteur de vin.jpg"
+               alt="Vigneron du domaine de la Hourre"
+               class="w-full aspect-video object-cover" loading="lazy" />
+        </div>
+        <p class="text-ocre text-[10px] tracking-widest uppercase mb-2">Vins & Armagnac</p>
+        <h3 class="font-serif text-xl mb-2">Domaine de la Hourre</h3>
+        <p class="text-muted text-sm font-light leading-relaxed">
+          Madiran, Pacherenc, et un Armagnac millésimé 1978 que Bernard garde pour les grandes occasions — et la croustade du dimanche.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     08 · RÉSERVATION
+══════════════════════════════════════ -->
+<section id="reservation" class="py-24 md:py-32 bg-bord">
+  <div class="max-w-2xl mx-auto px-6 md:px-10 text-center">
+
+    <div class="reveal font-serif text-cream/10 text-[110px] leading-none select-none -mb-6">✦</div>
+
+    <p class="reveal text-cream/60 text-[11px] tracking-[.25em] uppercase mb-4" data-delay="1">Réservation</p>
+    <h2 class="reveal font-serif text-cream text-4xl md:text-5xl font-light leading-tight mb-6" data-delay="1">
+      On vous attendait
+    </h2>
+    <p class="reveal text-cream/70 font-light leading-relaxed mb-12" data-delay="2">
+      La réservation est conseillée le week-end.<br />Appelez Bernard ou Michèle directement — ils décrocheront.
+    </p>
+
+    <!-- Téléphone -->
+    <a href="tel:+33562281450"
+       class="reveal inline-block font-serif text-cream text-4xl md:text-5xl font-light tracking-wide mb-10 hover:text-ocreL transition-colors" data-delay="2">
+      05 62 28 14 50
+    </a>
+
+    <!-- Horaires d'appel -->
+    <p class="reveal text-cream/50 text-sm font-light mb-12" data-delay="3">
+      Disponibles du mardi au dimanche · 9h–21h
+    </p>
+
+    <!-- Lien Google Maps -->
+    <a href="https://maps.google.com/?q=12+rue+des+Jacobins+32100+Condom" target="_blank" rel="noopener"
+       class="reveal inline-flex items-center gap-3 border border-cream/30 text-cream/80 text-[12px] font-medium tracking-widest uppercase px-8 py-4 hover:bg-cream/10 transition-colors" data-delay="3">
+      <svg width="14" height="18" viewBox="0 0 14 18" fill="none">
+        <path d="M7 1C4.24 1 2 3.24 2 6c0 4.25 5 11 5 11s5-6.75 5-11c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.3" fill="none"/>
+        <circle cx="7" cy="6" r="1.8" stroke="currentColor" stroke-width="1.3"/>
+      </svg>
+      Voir sur Google Maps
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     09 · INFOS PRATIQUES + FOOTER
+══════════════════════════════════════ -->
+<section id="infos" class="py-20 border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+      <div class="reveal">
+        <p class="text-muted text-[11px] tracking-[.2em] uppercase mb-3">Adresse</p>
+        <p class="font-serif text-lg font-light leading-relaxed">
+          12, rue des Jacobins<br />32100 Condom, Gers
+        </p>
+      </div>
+      <div class="reveal" data-delay="1">
+        <p class="text-muted text-[11px] tracking-[.2em] uppercase mb-3">Horaires</p>
+        <p class="font-serif text-base font-light leading-relaxed">
+          Mar–Ven · 12h–14h / 19h30–21h30<br /><br />
+          Sam–Dim · 12h–14h30 / 19h–22h<br /><br />
+          <span class="text-muted text-sm">Lundi fermé</span>
+        </p>
+      </div>
+      <div class="reveal" data-delay="2">
+        <p class="text-muted text-[11px] tracking-[.2em] uppercase mb-3">Contact</p>
+        <p class="font-serif text-lg font-light leading-relaxed">
+          <a href="tel:+33562281450" class="hover:text-ocre transition-colors">05 62 28 14 50</a><br />
+          contact@maisonduape.fr
+        </p>
+      </div>
+      <div class="reveal" data-delay="3">
+        <p class="text-muted text-[11px] tracking-[.2em] uppercase mb-3">Accès</p>
+        <p class="font-serif text-base font-light leading-relaxed">
+          Parking place d'Armes (gratuit)<br /><br />
+          45 min d'Auch<br />1h20 de Toulouse
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-line py-8">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
+    <span class="font-serif text-ink text-base font-light">La Maison <em>du Papé</em></span>
+    <span class="text-[11px] text-muted tracking-wide uppercase">© 2025 La Maison du Papé — Condom, Gers</span>
+    <a href="#reservation" class="text-[11px] text-muted tracking-widest uppercase hover:text-ink transition-colors">Réserver une table</a>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<script>
+/* Nav scroll */
+(function() {
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+})();
+
+/* Reveal */
+(function() {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('is-visible')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+})();
+</script>
+
+<!-- Menu piloté par Google Sheets -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+(function() {
+  // ══ ⚙️ COLLER ICI L'ID DU GOOGLE SHEET DU CLIENT ══
+  // Le Sheet doit avoir un onglet "Menu" avec 4 colonnes :
+  // Catégorie | Plat | Description | Prix
+  // Partage : "Toute personne avec le lien – Lecteur"
+  const SHEET_ID = "1LFT69iJvzZaEJbZC83_cxYQCJuxZdnJh4DqLbz033SM";
+  const ONGLET   = "Menu";
+  // ════════════════════════════════════════════════════
+
+  // Fallback gascon — s'affiche si Sheet non configuré ou inaccessible
+  const FALLBACK = [
+    { cat: "Entrées",  nom: "Foie gras mi-cuit maison",        desc: "Mariné à l'Armagnac · toast brioché · chutney de figues",      prix: "19 €", spec: true  },
+    { cat: "Entrées",  nom: "Velouté de cèpes du Gers",         desc: "Crème fraîche · huile de noix · mouillettes grillées",          prix: "13 €", spec: false },
+    { cat: "Entrées",  nom: "Salade gasconne",                  desc: "Gésiers confits · magret fumé · noix · vinaigrette Banyuls",    prix: "15 €", spec: false },
+    { cat: "Plats",    nom: "Confit de cuisse de canard",       desc: "8h dans sa graisse · sarladaise aux cèpes",                     prix: "26 €", spec: true  },
+    { cat: "Plats",    nom: "Cassoulet maison",                 desc: "Haricots tarbais · confit · saucisse de Toulouse · 48h (pour 2)", prix: "42 €", spec: false },
+    { cat: "Plats",    nom: "Magret aux girolles",              desc: "Rosé · girolles au beurre d'ail · jus Madiran · gratin dauphinois", prix: "29 €", spec: false },
+    { cat: "Desserts", nom: "Croustade aux pommes",             desc: "Flambée à l'Armagnac 1978 · crème fraîche maison",              prix: "11 €", spec: true  },
+    { cat: "Desserts", nom: "Fromages affinés",                 desc: "Sélection Gers & Pyrénées · confiture cerise noire · pain aux noix", prix: "14 €", spec: false },
+  ];
+
+  const isConfigured = SHEET_ID !== "COLLE_L_ID_DU_SHEET_ICI";
+
+  if (!isConfigured) { renderMenu(FALLBACK); return; }
+
+  const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(ONGLET)}`;
+
+  fetch(CSV_URL)
+    .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
+    .then(csv => {
+      const parsed = Papa.parse(csv, { header: true, skipEmptyLines: true });
+      const rows = parsed.data.map(normaliseRow).filter(r => r.nom);
+      if (!rows.length) throw new Error('Sheet vide');
+      renderMenu(rows);
+    })
+    .catch(err => { console.warn('Menu : fallback utilisé.', err); renderMenu(FALLBACK); });
+
+  function normaliseRow(row) {
+    const get = (keys) => {
+      for (const k of Object.keys(row)) {
+        const norm = k.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+        if (keys.includes(norm)) return row[k];
+      }
+      return '';
+    };
+    return {
+      cat:  (get(['categorie', 'category']) || '').trim(),
+      nom:  (get(['plat', 'nom', 'name']) || '').trim(),
+      desc: (get(['description', 'desc']) || '').trim(),
+      prix: (get(['prix', 'price']) || '').trim(),
+      spec: false,
+    };
+  }
+
+  function renderMenu(rows) {
+    const groups = new Map();
+    rows.forEach(r => {
+      const c = r.cat || 'Plats';
+      if (!groups.has(c)) groups.set(c, []);
+      groups.get(c).push(r);
+    });
+
+    const root = document.getElementById('menuRoot');
+    if (!root) return;
+
+    let html = '';
+    groups.forEach((plats, cat) => {
+      html += `
+        <div class="mb-12 last:mb-0">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="text-muted text-[10px] tracking-widest uppercase">${esc(cat)}</span>
+            <span class="flex-1 h-px bg-ink2/40"></span>
+          </div>
+          <div class="space-y-5">
+            ${plats.map((p, i) => `
+              <div class="flex items-baseline justify-between gap-4 ${i < plats.length - 1 ? 'border-b border-ink2/40 pb-5' : ''}">
+                <div>
+                  <p class="font-serif text-cream text-lg">${esc(p.nom)}</p>
+                  ${p.desc ? `<p class="text-muted text-sm font-light mt-1">${esc(p.desc)}</p>` : ''}
+                  ${p.spec ? `<span class="text-ocreL text-[10px] tracking-widest uppercase mt-1 block">✦ Spécialité</span>` : ''}
+                </div>
+                ${p.prix ? `<span class="font-serif text-ocreL text-lg whitespace-nowrap">${esc(p.prix)}</span>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>`;
+    });
+    root.innerHTML = html;
+  }
+
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+})();
+</script>
+
+</body>
+</html>
